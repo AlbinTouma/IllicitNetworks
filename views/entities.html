@@ -35,13 +35,113 @@
               The entities on this page are feature. For a full list of entities use our Alphabetical list.
               We believe this information to be reliable; however, we cannot guarantee full accuracy or completness. We invite comment on this information.
             </p>
-            <div>
-              {{range .}}
-              <h3><a href='/entities/{{.Id}}'>{{.Caption}}</h3>
-              {{end}}
-            </div>
-          </div>
-       </div>
+            <div class="listEntities"></div>
+            <button class='pageButton'></button>
+            
+            <div class="listEntities"></div>
+            <div class="pagination"></div>
+
+      <script>
+        let arrayEntities = {{.}}; // Replace with server-side injected data
+        var listEntities = document.querySelector(".listEntities");
+        var pagination = document.querySelector(".pagination");
+        var page = 0; // Current page index
+
+        const pageSize = 15; // Number of items per page
+        const maxPageButtons = 10; // Maximum page numbers to show in the paginator
+
+        // Create pages
+        let pages = [];
+        while (arrayEntities.length) {
+          pages.push(arrayEntities.splice(0, pageSize));
+        }
+
+        // Render the current page
+        function renderPage() {
+          listEntities.innerHTML = ""; // Clear the container
+          if (pages[page]) {
+            pages[page].forEach(entity => {
+              var para = document.createElement("h3");
+              var link = document.createElement("a");
+              link.setAttribute("href", `/entities/${entity.Id}`);
+              link.innerHTML = `${entity.Caption}`;
+              para.appendChild(link);
+              listEntities.appendChild(para);
+            });
+          }
+
+          renderPagination();
+        }
+
+        // Render the pagination controls
+        function renderPagination() {
+          pagination.innerHTML = ""; // Clear existing pagination
+
+          // Create "First" button
+          const firstButton = document.createElement("button");
+          firstButton.textContent = "First Page";
+          firstButton.disabled = page === 0;
+          firstButton.addEventListener("click", () => {
+            page = 0;
+            renderPage();
+          });
+          pagination.appendChild(firstButton);
+
+          // Create "Previous" button
+          const prevButton = document.createElement("button");
+          prevButton.textContent = "Previous Page";
+          prevButton.disabled = page === 0;
+          prevButton.addEventListener("click", () => {
+            if (page > 0) {
+              page--;
+              renderPage();
+            }
+          });
+          pagination.appendChild(prevButton);
+
+          // Add numbered page buttons
+          const startPage = Math.max(0, page - Math.floor(maxPageButtons / 2));
+          const endPage = Math.min(pages.length, startPage + maxPageButtons);
+
+          for (let i = startPage; i < endPage; i++) {
+            const pageButton = document.createElement("button");
+            pageButton.textContent = (i + 1).toString();
+            pageButton.disabled = i === page; // Highlight the current page
+            pageButton.addEventListener("click", () => {
+              page = i;
+              renderPage();
+            });
+            pagination.appendChild(pageButton);
+          }
+
+          // Create "Next" button
+          const nextButton = document.createElement("button");
+          nextButton.textContent = "Next Page";
+          nextButton.disabled = page === pages.length - 1;
+          nextButton.addEventListener("click", () => {
+            if (page < pages.length - 1) {
+              page++;
+              renderPage();
+            }
+          });
+          pagination.appendChild(nextButton);
+
+          // Create "Last" button
+          const lastButton = document.createElement("button");
+          lastButton.textContent = "Last Page";
+          lastButton.disabled = page === pages.length - 1;
+          lastButton.addEventListener("click", () => {
+            page = pages.length - 1;
+            renderPage();
+          });
+          pagination.appendChild(lastButton);
+        }
+
+        // Initial render
+        renderPage();
+      </script>
+      </div>
+      </div>
       </div>
      <footer class='footer'>
       <div>
