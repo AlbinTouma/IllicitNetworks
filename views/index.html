@@ -9,77 +9,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
       <link href="../public/index.css" rel="stylesheet">
-
     </head>
     <body>
-      <header>
-        <section class='donate-banner'>
-        <div class='donate-banner-content'>
-          <span>A website published by XXXX</span>
-          <ul>
-          <li>DONATE</li>
-          <li>SIGN UP</li>
-          </ul>
-        </div>
-      </section>
-        <section class='header-banner'>
-          <div class='header-logo'>
-            <h1>Illicit Finance</h1>
-            <p> Tracking groups and individuals <br> behind illicit finance and war</p>
-          </div>
-          <input placeholder="Search"></input>
-        </section>
-      <nav class='nav'> <div class='navText'>HOME</div>
-        <a href='/entities' class='navText'>ENTITIES</a>
-        <div class='navText'>SANCTIONS</div>
-        <div class='navText'>ABOUT US</div>
-      </nav>
-      </header>
-      <article>
+    {{template "header"}}
+            <article>
         <section class='content'>
         <img class="hero-image" src='https://images.wsj.net/im-865352?width=1280&size=1.77777778'>
         <section class='content-cols'>
         <div class='two-cols float-left'>
         <hr>
-        <h1>WATCHLIST</h1>
-        
+        <h1>Our Publications</h1>
         </div>
         <div class="two-cols float-right">      
         <hr>
         <h1>ENTITIES</h1>
-        {{ range .}}
-              <p>{{firstElement .Properties.Name}}</p>
-            <p>{{firstElement .Properties.Notes}}</p>
-        {{ end }}
+          <p>
+              {{range .}}
+              <a href="/entities/{{.Id}}">
+              {{.Caption}}
+            </a>
+          </p>
+            {{end}}
       </div>
       </section>
       </section>
       <section class='latest'>
-        <h1>Latest</h1>
+        <h1>News</h1>
+        <div class='news'></div>
+        <script src='public/js/news.js' defer></script>
       </section>
-      
-      <footer class='footer'>
-      <div>
-        <span>Copyright @ 2024-10-24 </span>
-        <span>Illicit Finance</span>
-        <span>Thank you</span>
-      </div>
-      </footer>
-
-      </article>
+     </article>
+      {{ template "footer"}}
     </body>
 </html>
 {{end}}
 
-{{define "entity"}}
-  <div>
-            <h3>
-            <span>{{.Name}}</span>
-            </h3>
-            <span>{{.Type}}</span>
-            <span>{{.Country}}</span>
-            <span>{{.About}}</span>
-            <hr>
-          </div>
-
-{{end}}

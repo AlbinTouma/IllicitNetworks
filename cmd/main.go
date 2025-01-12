@@ -37,17 +37,16 @@ func main(){
 	e.Static("/public", "public")
 
 	e.GET("/", func(c echo.Context) error {
-      result, err := db.QueryEntity()
+      result, err := db.QueryEntity("SELECT id, caption, schema, properties, image FROM test LIMIT 10;")
       if err != nil {
         log.Printf("ERROR")
-        return c.JSON(200, err)
+        return c.JSON(200,err)
     }
-
 		return c.Render(200, "index", result)
 	})
 
   e.GET("/data", func(c echo.Context) error {
-      result, err := db.QueryEntity()
+      result, err := db.QueryEntity("SELECT id, caption, schema, properties, image FROM test;")
       if err != nil {
         return c.JSON(200, err)
       }
@@ -56,7 +55,7 @@ func main(){
 	})
 
 	e.GET("/entities", func(c echo.Context) error {
-    result, err := db.QueryEntity()
+    result, err := db.QueryEntity("SELECT id, caption, schema, properties, image FROM test;")
       if err != nil {
         return c.JSON(200, "DB down")
     }
@@ -66,7 +65,7 @@ func main(){
 
   e.GET("/entities/:entity", func(c echo.Context) error {
 		query := c.Param("entity")
-    result, err := db.QueryEntity()
+    result, err := db.QueryEntity("SELECT id, caption, schema, properties, image FROM test;")
       if err != nil {
         return c.JSON(200, "DB down")
     }
@@ -77,6 +76,12 @@ func main(){
     }
 	return c.Render(200, "", nil)
 	})
+
+  e.GET("/about", func(c echo.Context) error {
+			return c.Render(200, "about", nil)
+
+	})
+
 	e.Start(":8080")
 
 }

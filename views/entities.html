@@ -11,13 +11,7 @@
       <link href="../public/index.css" rel="stylesheet">
     </head>
     <body>
-      <header>
-      <div>
-        <h1>Illicit Finance</h1>
-        <input placeholder="Search"></input>
-      </div>
-      {{template "nav"}}
-      </header>
+    {{template "header"}}
       <article class='article__entities'>
       <div class='content content__entities'>
         <div class='content-cols content-cols--entities'>
@@ -143,14 +137,9 @@
       </div>
       </div>
       </div>
-     <footer class='footer'>
-      <div>
-        <span>Copyright @ 2024-10-24 </span>
-        <span>Illicit Finance</span>
-        <span>Thank you</span>
-      </div>
-      </footer>
       </article>
+
+      {{template "footer"}}
     </body>
 </html>
 {{end}}
