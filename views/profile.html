@@ -15,19 +15,16 @@
    <article class="article__entities">
     <div class="content content__entities">
       <div class="content-cols content-cols--entities">
-        <div class="two_cols float-left">
-          <div class="select-box">
-            <span>Recent</span>
-            <span>PEP</span>
-            <span>Watchlist</span>
-          </div>
-        </div>
-      <div class="two_cols float_right">
+        <div class="two_cols float-left flex_20">
+            {{template "select-box"}}
+                  </div>
+      <div class="two_cols float_right flex_80">
+        <section class="profile_content_container">
          <h1>{{.Caption}}</h1>
           <div>
               {{if .Image}}
               <figure>
-              <image id="profilePicture" src="http://www.localhost:8090/api/files/Test/{{.Id}}/{{.Image}}" width="200" height="200">
+              <image id="profilePicture" src="http://www.localhost:8090/api/files/Test/{{.Id}}/{{.Image}}" alt="" width="auto" height="200">
               </image>
               </figure>
              {{end}}
@@ -36,9 +33,12 @@
               {{else}}
               <p></p>
               {{end}}
-
           </div>
+            </section>
     </div>
+
+      </div>
+        </div>
           {{template "infobox" .}}
   </article>
     {{template "footer"}}
@@ -49,7 +49,7 @@
 
 
 {{define "infobox"}}
-<div style="width:100%">
+<div class="infobox_container">
   <div id='infobox'></div>
   <script>
    const entityObj = {{getHumanTags .Properties}};
@@ -76,8 +76,11 @@
      const keyElement = document.createElement('strong');
      keyElement.textContent = `${key}`
 
+     
      const valueElement = document.createElement('span')
      if (Array.isArray(object[key])){
+       
+
        valueElement.textContent = object[key].join(", ");
      } else {
       valueElement.textContent = object[key]
@@ -95,3 +98,11 @@
 </div>
 {{end}}
 
+
+{{define "select-box"}}
+    <div class="select-box">
+          <span>
+              <a href="/entities">Recent</a>
+          </span>
+    </div>
+{{end}}

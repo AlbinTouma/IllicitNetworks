@@ -61,7 +61,6 @@ nav {
   flex-direction: row;
   gap: 10px;
   background: navy;
-  color: white;
   list-style-type: none;
   align-items: center;
   font-size: 16px;
@@ -116,6 +115,7 @@ article {
   padding: 2px;
 }
 
+
 .float-left {
   float: left;
 }
@@ -135,6 +135,7 @@ article {
 
 
 .select-box {
+  flex: 0 20%;
   display: flex;
   flex-direction: column;
   width: 150px;
@@ -142,6 +143,10 @@ article {
   background: lightgrey;
   padding: 5px;
   }
+
+.profile_content_container{
+  flex: 80%;
+}
 
 #field-label{
   color: "#666";
@@ -159,6 +164,23 @@ footer {
 
 }
 
+.infobox_container{
+  margin-top: 5px;
+  padding: 2em;
+  border-style: solid;
+  border-width: 0.5px;
+  height: fit-content;
+
+}
+
+.flex_20{
+  flex: 0 20%;
+}
+
+.flex_80{
+  flex: 0 80%;
+}
+
 .about_us_container {
   grid-column: 1/-1;
 
@@ -167,4 +189,7 @@ footer {
 .about_us {
   width: 768px;
   margin: auto;
+}
+.latest {
+  margin: 10px;
 }
