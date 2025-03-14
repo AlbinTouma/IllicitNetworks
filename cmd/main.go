@@ -31,6 +31,7 @@ func GetHumanTags(s any) map[string]interface{} {
 }
 
 func main(){
+  log.Println("Running server")
 	e := echo.New()
 	e.Renderer = newTemplate()
 
@@ -81,7 +82,6 @@ func main(){
 			return c.Render(200, "about", nil)
 
 	})
-
 	e.Start(":8080")
 
 }
